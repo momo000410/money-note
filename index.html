@@ -2,136 +2,151 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>阿砚的课程日程表</title>
-    <style>
-        body {
-            font-family: "Microsoft YaHei", sans-serif;
-            background-color: #eef5ff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            color: #3366cc;
-        }
-        .form-container {
-            background-color: #ffffff;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(51,102,204,0.2);
-            margin-bottom: 20px;
-        }
-        .form-container input, .form-container select, .form-container button {
-            margin: 8px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: 16px;
-        }
-        .form-container button {
-            background-color: #3366cc;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .form-container button:hover {
-            background-color: #254a99;
-        }
-        table {
-            border-collapse: collapse;
-            width: 90%;
-            max-width: 800px;
-        }
-        th, td {
-            border: 1px solid #ccc;
-            padding: 12px;
-            text-align: center;
-        }
-        th {
-            background-color: #3366cc;
-            color: white;
-        }
-        td {
-            background-color: #ffffff;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>阿砚的课程表</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", sans-serif;
+      background-color: #f4f8ff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #3366cc;
+      margin-bottom: 20px;
+    }
+    .input-area {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    input, select, button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #3366cc;
+      color: white;
+      border: none;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      max-width: 700px;
+    }
+    th, td {
+      border: 1px solid #cccccc;
+      padding: 8px;
+      text-align: center;
+      min-width: 70px;
+    }
+    th {
+      background-color: #3366cc;
+      color: white;
+    }
+    td.empty {
+      background-color: #ffffff;
+    }
+  </style>
 </head>
 <body>
-    <h1>阿砚的课程日程表</h1>
-    <div class="form-container">
-        <input type="text" id="eventName" placeholder="日程名称">
-        <select id="eventDay">
-            <option value="星期一">星期一</option>
-            <option value="星期二">星期二</option>
-            <option value="星期三">星期三</option>
-            <option value="星期四">星期四</option>
-            <option value="星期五">星期五</option>
-            <option value="星期六">星期六</option>
-            <option value="星期日">星期日</option>
-        </select>
-        <select id="eventTime">
-            <option value="8:00 AM - 9:00 AM">8:00 AM - 9:00 AM</option>
-            <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
-            <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
-            <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
-            <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM</option>
-            <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
-            <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
-            <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
-            <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
-            <option value="5:00 PM - 6:00 PM">5:00 PM - 6:00 PM</option>
-            <option value="6:00 PM - 7:00 PM">6:00 PM - 7:00 PM</option>
-            <option value="7:00 PM - 8:00 PM">7:00 PM - 8:00 PM</option>
-            <option value="8:00 PM - 9:00 PM">8:00 PM - 9:00 PM</option>
-            <option value="9:00 PM - 10:00 PM">9:00 PM - 10:00 PM</option>
-        </select>
-        <button onclick="addSchedule()">添加</button>
-    </div>
-    <table id="scheduleTable">
-        <thead>
-            <tr><th>星期</th><th>时间</th><th>日程</th></tr>
-        </thead>
-        <tbody id="scheduleBody"></tbody>
-    </table>
-    <script>
-        const tableBody = document.getElementById("scheduleBody");
-        const storageKey = "scheduleData";
+  <h1>阿砚的课程表</h1>
+  <div class="input-area">
+    <input type="text" id="subject" placeholder="日程名称" />
+    <select id="day">
+      <option value="1">星期一</option>
+      <option value="2">星期二</option>
+      <option value="3">星期三</option>
+      <option value="4">星期四</option>
+      <option value="5">星期五</option>
+      <option value="6">星期六</option>
+      <option value="7">星期日</option>
+    </select>
+    <select id="time">
+      <option value="7">7:00 AM</option>
+      <option value="8">8:00 AM</option>
+      <option value="9">9:00 AM</option>
+      <option value="10">10:00 AM</option>
+      <option value="11">11:00 AM</option>
+      <option value="12">12:00 PM</option>
+      <option value="13">1:00 PM</option>
+      <option value="14">2:00 PM</option>
+      <option value="15">3:00 PM</option>
+      <option value="16">4:00 PM</option>
+      <option value="17">5:00 PM</option>
+      <option value="18">6:00 PM</option>
+      <option value="19">7:00 PM</option>
+      <option value="20">8:00 PM</option>
+      <option value="21">9:00 PM</option>
+      <option value="22">10:00 PM</option>
+    </select>
+    <button onclick="addEntry()">添加</button>
+  </div>
 
-        function loadSchedule() {
-            const saved = localStorage.getItem(storageKey);
-            if (saved) {
-                const data = JSON.parse(saved);
-                data.forEach(entry => insertRow(entry.day, entry.time, entry.name));
-            }
-        }
+  <table id="schedule">
+    <thead>
+      <tr>
+        <th>时间</th>
+        <th>星期一</th>
+        <th>星期二</th>
+        <th>星期三</th>
+        <th>星期四</th>
+        <th>星期五</th>
+        <th>星期六</th>
+        <th>星期日</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Generate time rows -->
+<tr><th>7:00</th><td class="empty" data-day="1" data-time="7"></td><td class="empty" data-day="2" data-time="7"></td><td class="empty" data-day="3" data-time="7"></td><td class="empty" data-day="4" data-time="7"></td><td class="empty" data-day="5" data-time="7"></td><td class="empty" data-day="6" data-time="7"></td><td class="empty" data-day="7" data-time="7"></td></tr>
+<tr><th>8:00</th><td class="empty" data-day="1" data-time="8"></td><td class="empty" data-day="2" data-time="8"></td><td class="empty" data-day="3" data-time="8"></td><td class="empty" data-day="4" data-time="8"></td><td class="empty" data-day="5" data-time="8"></td><td class="empty" data-day="6" data-time="8"></td><td class="empty" data-day="7" data-time="8"></td></tr>
+<tr><th>9:00</th><td class="empty" data-day="1" data-time="9"></td><td class="empty" data-day="2" data-time="9"></td><td class="empty" data-day="3" data-time="9"></td><td class="empty" data-day="4" data-time="9"></td><td class="empty" data-day="5" data-time="9"></td><td class="empty" data-day="6" data-time="9"></td><td class="empty" data-day="7" data-time="9"></td></tr>
+<tr><th>10:00</th><td class="empty" data-day="1" data-time="10"></td><td class="empty" data-day="2" data-time="10"></td><td class="empty" data-day="3" data-time="10"></td><td class="empty" data-day="4" data-time="10"></td><td class="empty" data-day="5" data-time="10"></td><td class="empty" data-day="6" data-time="10"></td><td class="empty" data-day="7" data-time="10"></td></tr>
+<tr><th>11:00</th><td class="empty" data-day="1" data-time="11"></td><td class="empty" data-day="2" data-time="11"></td><td class="empty" data-day="3" data-time="11"></td><td class="empty" data-day="4" data-time="11"></td><td class="empty" data-day="5" data-time="11"></td><td class="empty" data-day="6" data-time="11"></td><td class="empty" data-day="7" data-time="11"></td></tr>
+<tr><th>12:00</th><td class="empty" data-day="1" data-time="12"></td><td class="empty" data-day="2" data-time="12"></td><td class="empty" data-day="3" data-time="12"></td><td class="empty" data-day="4" data-time="12"></td><td class="empty" data-day="5" data-time="12"></td><td class="empty" data-day="6" data-time="12"></td><td class="empty" data-day="7" data-time="12"></td></tr>
+<tr><th>13:00</th><td class="empty" data-day="1" data-time="13"></td><td class="empty" data-day="2" data-time="13"></td><td class="empty" data-day="3" data-time="13"></td><td class="empty" data-day="4" data-time="13"></td><td class="empty" data-day="5" data-time="13"></td><td class="empty" data-day="6" data-time="13"></td><td class="empty" data-day="7" data-time="13"></td></tr>
+<tr><th>14:00</th><td class="empty" data-day="1" data-time="14"></td><td class="empty" data-day="2" data-time="14"></td><td class="empty" data-day="3" data-time="14"></td><td class="empty" data-day="4" data-time="14"></td><td class="empty" data-day="5" data-time="14"></td><td class="empty" data-day="6" data-time="14"></td><td class="empty" data-day="7" data-time="14"></td></tr>
+<tr><th>15:00</th><td class="empty" data-day="1" data-time="15"></td><td class="empty" data-day="2" data-time="15"></td><td class="empty" data-day="3" data-time="15"></td><td class="empty" data-day="4" data-time="15"></td><td class="empty" data-day="5" data-time="15"></td><td class="empty" data-day="6" data-time="15"></td><td class="empty" data-day="7" data-time="15"></td></tr>
+<tr><th>16:00</th><td class="empty" data-day="1" data-time="16"></td><td class="empty" data-day="2" data-time="16"></td><td class="empty" data-day="3" data-time="16"></td><td class="empty" data-day="4" data-time="16"></td><td class="empty" data-day="5" data-time="16"></td><td class="empty" data-day="6" data-time="16"></td><td class="empty" data-day="7" data-time="16"></td></tr>
+<tr><th>17:00</th><td class="empty" data-day="1" data-time="17"></td><td class="empty" data-day="2" data-time="17"></td><td class="empty" data-day="3" data-time="17"></td><td class="empty" data-day="4" data-time="17"></td><td class="empty" data-day="5" data-time="17"></td><td class="empty" data-day="6" data-time="17"></td><td class="empty" data-day="7" data-time="17"></td></tr>
+<tr><th>18:00</th><td class="empty" data-day="1" data-time="18"></td><td class="empty" data-day="2" data-time="18"></td><td class="empty" data-day="3" data-time="18"></td><td class="empty" data-day="4" data-time="18"></td><td class="empty" data-day="5" data-time="18"></td><td class="empty" data-day="6" data-time="18"></td><td class="empty" data-day="7" data-time="18"></td></tr>
+<tr><th>19:00</th><td class="empty" data-day="1" data-time="19"></td><td class="empty" data-day="2" data-time="19"></td><td class="empty" data-day="3" data-time="19"></td><td class="empty" data-day="4" data-time="19"></td><td class="empty" data-day="5" data-time="19"></td><td class="empty" data-day="6" data-time="19"></td><td class="empty" data-day="7" data-time="19"></td></tr>
+<tr><th>20:00</th><td class="empty" data-day="1" data-time="20"></td><td class="empty" data-day="2" data-time="20"></td><td class="empty" data-day="3" data-time="20"></td><td class="empty" data-day="4" data-time="20"></td><td class="empty" data-day="5" data-time="20"></td><td class="empty" data-day="6" data-time="20"></td><td class="empty" data-day="7" data-time="20"></td></tr>
+<tr><th>21:00</th><td class="empty" data-day="1" data-time="21"></td><td class="empty" data-day="2" data-time="21"></td><td class="empty" data-day="3" data-time="21"></td><td class="empty" data-day="4" data-time="21"></td><td class="empty" data-day="5" data-time="21"></td><td class="empty" data-day="6" data-time="21"></td><td class="empty" data-day="7" data-time="21"></td></tr>
+<tr><th>22:00</th><td class="empty" data-day="1" data-time="22"></td><td class="empty" data-day="2" data-time="22"></td><td class="empty" data-day="3" data-time="22"></td><td class="empty" data-day="4" data-time="22"></td><td class="empty" data-day="5" data-time="22"></td><td class="empty" data-day="6" data-time="22"></td><td class="empty" data-day="7" data-time="22"></td></tr>
+    </tbody>
+  </table>
 
-        function saveSchedule(data) {
-            localStorage.setItem(storageKey, JSON.stringify(data));
-        }
+  <script>
+    const storageKey = 'ayanschedule';
 
-        function addSchedule() {
-            const name = document.getElementById("eventName").value.trim();
-            const day = document.getElementById("eventDay").value;
-            const time = document.getElementById("eventTime").value;
-            if (!name) return;
+    function loadSchedule() {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      Object.entries(saved).forEach(([key, value]) => {
+        const cell = document.querySelector(`[data-day="${value.day}"][data-time="${value.time}"]`);
+        if (cell) cell.textContent = value.subject;
+      });
+    }
 
-            insertRow(day, time, name);
+    function addEntry() {
+      const subject = document.getElementById("subject").value;
+      const day = document.getElementById("day").value;
+      const time = document.getElementById("time").value;
+      const cell = document.querySelector(`[data-day="${day}"][data-time="${time}"]`);
+      if (cell) {
+        cell.textContent = subject;
+        const saveData = JSON.parse(localStorage.getItem(storageKey) || '{}');
+        saveData[`${day}-${time}`] = { subject, day, time };
+        localStorage.setItem(storageKey, JSON.stringify(saveData));
+      }
+    }
 
-            const current = JSON.parse(localStorage.getItem(storageKey) || "[]");
-            current.push({day, time, name});
-            saveSchedule(current);
-        }
-
-        function insertRow(day, time, name) {
-            const row = document.createElement("tr");
-            row.innerHTML = `<td>${day}</td><td>${time}</td><td>${name}</td>`;
-            tableBody.appendChild(row);
-        }
-
-        loadSchedule();
-    </script>
+    loadSchedule();
+  </script>
 </body>
 </html>
