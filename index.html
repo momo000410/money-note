@@ -1,123 +1,134 @@
 
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>可爱课程表</title>
-  <style>
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background-color: #fff0f5;
-      color: #333;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      color: #d87093;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #eab0d9;
-    }
-    input, select, button {
-      margin: 5px;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 14px;
-    }
-    button {
-      background-color: #ffb6c1;
-      color: white;
-      border: none;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-    }
-    th, td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: center;
-    }
-    th {
-      background-color: #ffe4e1;
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>我的课程日程表</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #fef2f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 40px auto;
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px #f8cdd5;
+        }
+        h1 {
+            text-align: center;
+            color: #f48fb1;
+            font-size: 26px;
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .controls input,
+        .controls select,
+        .controls button {
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        .controls button {
+            background-color: #f48fb1;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .controls button:hover {
+            background-color: #ec407a;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff0f5;
+        }
+        th, td {
+            border: 1px solid #f8bbd0;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f48fb1;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>阿砚的可爱课程表</h1>
-    <input id="taskName" type="text" placeholder="输入日程名称">
-    <select id="weekday">
-      <option value="周一">周一</option>
-      <option value="周二">周二</option>
-      <option value="周三">周三</option>
-      <option value="周四">周四</option>
-      <option value="周五">周五</option>
-      <option value="周六">周六</option>
-      <option value="周日">周日</option>
-    </select>
-    <select id="timeRange">
-      <option value="08:00-09:00">08:00-09:00</option>
-      <option value="09:00-10:00">09:00-10:00</option>
-      <option value="10:00-11:00">10:00-11:00</option>
-      <option value="11:00-12:00">11:00-12:00</option>
-      <option value="12:00-13:00">12:00-13:00</option>
-      <option value="13:00-14:00">13:00-14:00</option>
-      <option value="14:00-15:00">14:00-15:00</option>
-      <option value="15:00-16:00">15:00-16:00</option>
-      <option value="16:00-17:00">16:00-17:00</option>
-      <option value="17:00-18:00">17:00-18:00</option>
-    </select>
-    <button onclick="addSchedule()">添加</button>
-
+<div class="container">
+    <h1>我的课程日程表</h1>
+    <div class="controls">
+        <input type="text" id="task" placeholder="日程名称" />
+        <select id="weekday">
+            <option value="星期一">星期一</option>
+            <option value="星期二">星期二</option>
+            <option value="星期三">星期三</option>
+            <option value="星期四">星期四</option>
+            <option value="星期五">星期五</option>
+            <option value="星期六">星期六</option>
+            <option value="星期日">星期日</option>
+        </select>
+        <input type="text" id="time" placeholder="10:55 - 12:25" />
+        <button onclick="addSchedule()">添加</button>
+    </div>
     <table>
-      <thead>
-        <tr>
-          <th>星期</th>
-          <th>时间</th>
-          <th>日程</th>
-        </tr>
-      </thead>
-      <tbody id="scheduleBody"></tbody>
+        <thead>
+            <tr>
+                <th>时间</th>
+                <th>星期一</th>
+                <th>星期二</th>
+                <th>星期三</th>
+                <th>星期四</th>
+                <th>星期五</th>
+                <th>星期六</th>
+                <th>星期日</th>
+            </tr>
+        </thead>
+        <tbody id="schedule-body">
+        </tbody>
     </table>
-  </div>
-
-  <script>
+</div>
+<script>
     function addSchedule() {
-      const name = document.getElementById("taskName").value;
-      const day = document.getElementById("weekday").value;
-      const time = document.getElementById("timeRange").value;
+        const task = document.getElementById("task").value;
+        const weekday = document.getElementById("weekday").value;
+        const time = document.getElementById("time").value;
 
-      if (!name.trim()) return;
+        if (!task || !weekday || !time) return;
 
-      const table = document.getElementById("scheduleBody");
-      const row = document.createElement("tr");
+        const tbody = document.getElementById("schedule-body");
+        const row = document.createElement("tr");
 
-      const cellDay = document.createElement("td");
-      const cellTime = document.createElement("td");
-      const cellName = document.createElement("td");
+        const timeCell = document.createElement("td");
+        timeCell.innerText = time;
+        row.appendChild(timeCell);
 
-      cellDay.innerText = day;
-      cellTime.innerText = time;
-      cellName.innerText = name;
+        const days = ["星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"];
+        for (let day of days) {
+            const cell = document.createElement("td");
+            if (day === weekday) {
+                cell.innerText = task;
+            }
+            row.appendChild(cell);
+        }
 
-      row.appendChild(cellDay);
-      row.appendChild(cellTime);
-      row.appendChild(cellName);
+        tbody.appendChild(row);
 
-      table.appendChild(row);
-
-      // 清空输入框
-      document.getElementById("taskName").value = "";
+        document.getElementById("task").value = "";
+        document.getElementById("time").value = "";
     }
-  </script>
+</script>
 </body>
 </html>
