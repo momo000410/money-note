@@ -2,93 +2,122 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-    <meta charset="UTF-8">
-    <title>课程日程表</title>
-    <style>
-        body {
-            font-family: "Helvetica Neue", sans-serif;
-            background-color: #f8f8ff;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        h1 {
-            background-color: #4a90e2;
-            color: white;
-            margin: 0;
-            padding: 1rem;
-        }
-        .container {
-            padding: 2rem;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-        th, td {
-            border: 1px solid #cccccc;
-            padding: 0.5rem;
-        }
-        th {
-            background-color: #dbe9ff;
-        }
-        input[type="text"] {
-            width: 95%;
-            border: none;
-            background: transparent;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>可爱课程表</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background-color: #fff0f5;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #d87093;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #eab0d9;
+    }
+    input, select, button {
+      margin: 5px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    button {
+      background-color: #ffb6c1;
+      color: white;
+      border: none;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    th {
+      background-color: #ffe4e1;
+    }
+  </style>
 </head>
 <body>
-    <h1>我的课程日程表</h1>
-    <div class="container">
-        <table id="scheduleTable">
-            <thead>
-                <tr>
-                    <th>时间</th>
-                    <th>星期一</th>
-                    <th>星期二</th>
-                    <th>星期三</th>
-                    <th>星期四</th>
-                    <th>星期五</th>
-                    <th>星期六</th>
-                    <th>星期日</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- 每小时一行，从7点到凌晨1点 -->
-                <!-- 使用 JS 动态生成 -->
-            </tbody>
-        </table>
-    </div>
+  <div class="container">
+    <h1>阿砚的可爱课程表</h1>
+    <input id="taskName" type="text" placeholder="输入日程名称">
+    <select id="weekday">
+      <option value="周一">周一</option>
+      <option value="周二">周二</option>
+      <option value="周三">周三</option>
+      <option value="周四">周四</option>
+      <option value="周五">周五</option>
+      <option value="周六">周六</option>
+      <option value="周日">周日</option>
+    </select>
+    <select id="timeRange">
+      <option value="08:00-09:00">08:00-09:00</option>
+      <option value="09:00-10:00">09:00-10:00</option>
+      <option value="10:00-11:00">10:00-11:00</option>
+      <option value="11:00-12:00">11:00-12:00</option>
+      <option value="12:00-13:00">12:00-13:00</option>
+      <option value="13:00-14:00">13:00-14:00</option>
+      <option value="14:00-15:00">14:00-15:00</option>
+      <option value="15:00-16:00">15:00-16:00</option>
+      <option value="16:00-17:00">16:00-17:00</option>
+      <option value="17:00-18:00">17:00-18:00</option>
+    </select>
+    <button onclick="addSchedule()">添加</button>
 
-    <script>
-        const startHour = 7;
-        const endHour = 25;
-        const tbody = document.querySelector("#scheduleTable tbody");
+    <table>
+      <thead>
+        <tr>
+          <th>星期</th>
+          <th>时间</th>
+          <th>日程</th>
+        </tr>
+      </thead>
+      <tbody id="scheduleBody"></tbody>
+    </table>
+  </div>
 
-        for (let hour = startHour; hour < endHour; hour++) {
-            const row = document.createElement("tr");
-            const timeCell = document.createElement("td");
-            timeCell.textContent = `${hour}:00`;
-            row.appendChild(timeCell);
+  <script>
+    function addSchedule() {
+      const name = document.getElementById("taskName").value;
+      const day = document.getElementById("weekday").value;
+      const time = document.getElementById("timeRange").value;
 
-            for (let day = 0; day < 7; day++) {
-                const cell = document.createElement("td");
-                const input = document.createElement("input");
-                input.type = "text";
-                const key = `schedule_${hour}_${day}`;
-                input.value = localStorage.getItem(key) || "";
-                input.onchange = () => {
-                    localStorage.setItem(key, input.value);
-                };
-                cell.appendChild(input);
-                row.appendChild(cell);
-            }
+      if (!name.trim()) return;
 
-            tbody.appendChild(row);
-        }
-    </script>
+      const table = document.getElementById("scheduleBody");
+      const row = document.createElement("tr");
+
+      const cellDay = document.createElement("td");
+      const cellTime = document.createElement("td");
+      const cellName = document.createElement("td");
+
+      cellDay.innerText = day;
+      cellTime.innerText = time;
+      cellName.innerText = name;
+
+      row.appendChild(cellDay);
+      row.appendChild(cellTime);
+      row.appendChild(cellName);
+
+      table.appendChild(row);
+
+      // 清空输入框
+      document.getElementById("taskName").value = "";
+    }
+  </script>
 </body>
 </html>
