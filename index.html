@@ -3,69 +3,92 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>我的课程表</title>
+    <title>课程日程表</title>
     <style>
         body {
-            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-            background-color: #f0f8ff;
-            padding: 20px;
+            font-family: "Helvetica Neue", sans-serif;
+            background-color: #f8f8ff;
+            margin: 0;
+            padding: 0;
+            text-align: center;
         }
         h1 {
-            text-align: center;
-            color: #333;
+            background-color: #4a90e2;
+            color: white;
+            margin: 0;
+            padding: 1rem;
+        }
+        .container {
+            padding: 2rem;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 1rem;
         }
         th, td {
-            border: 1px solid #ccc;
-            padding: 10px;
-            text-align: center;
+            border: 1px solid #cccccc;
+            padding: 0.5rem;
         }
         th {
-            background-color: #e0ffff;
+            background-color: #dbe9ff;
         }
-        td input {
+        input[type="text"] {
             width: 95%;
             border: none;
             background: transparent;
-            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h1>我的课程表</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>时间</th>
-                <th>星期一</th>
-                <th>星期二</th>
-                <th>星期三</th>
-                <th>星期四</th>
-                <th>星期五</th>
-                <th>星期六</th>
-                <th>星期日</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- Generate hourly rows -->
-            <tr><th>8:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>9:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>10:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>11:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>12:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>13:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>14:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>15:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>16:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>17:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>18:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>19:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>20:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-<tr><th>21:00</th><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td><td><input type='text' placeholder='添加课程'></td></tr>
-        </tbody>
-    </table>
+    <h1>我的课程日程表</h1>
+    <div class="container">
+        <table id="scheduleTable">
+            <thead>
+                <tr>
+                    <th>时间</th>
+                    <th>星期一</th>
+                    <th>星期二</th>
+                    <th>星期三</th>
+                    <th>星期四</th>
+                    <th>星期五</th>
+                    <th>星期六</th>
+                    <th>星期日</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 每小时一行，从7点到凌晨1点 -->
+                <!-- 使用 JS 动态生成 -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        const startHour = 7;
+        const endHour = 25;
+        const tbody = document.querySelector("#scheduleTable tbody");
+
+        for (let hour = startHour; hour < endHour; hour++) {
+            const row = document.createElement("tr");
+            const timeCell = document.createElement("td");
+            timeCell.textContent = `${hour}:00`;
+            row.appendChild(timeCell);
+
+            for (let day = 0; day < 7; day++) {
+                const cell = document.createElement("td");
+                const input = document.createElement("input");
+                input.type = "text";
+                const key = `schedule_${hour}_${day}`;
+                input.value = localStorage.getItem(key) || "";
+                input.onchange = () => {
+                    localStorage.setItem(key, input.value);
+                };
+                cell.appendChild(input);
+                row.appendChild(cell);
+            }
+
+            tbody.appendChild(row);
+        }
+    </script>
 </body>
 </html>
