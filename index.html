@@ -1,63 +1,69 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <title>阿砚的可爱课程表</title>
+    <title>阿砚的课程日程表</title>
     <style>
         body {
-            background-color: #ffeef4;
-            font-family: "Helvetica Neue", sans-serif;
+            font-family: "Microsoft YaHei", sans-serif;
+            background-color: #eef5ff;
             display: flex;
-            justify-content: center;
-            padding: 40px;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
         }
-        .container {
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            padding: 30px;
-            width: 90%;
-            max-width: 600px;
+        h1 {
+            color: #3366cc;
         }
-        h2 {
-            text-align: center;
-            color: #f271a0;
+        .form-container {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(51,102,204,0.2);
+            margin-bottom: 20px;
         }
-        input, select {
+        .form-container input, .form-container select, .form-container button {
+            margin: 8px;
             padding: 10px;
-            margin: 5px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 16px;
         }
-        button {
-            padding: 10px 20px;
-            background-color: #f271a0;
+        .form-container button {
+            background-color: #3366cc;
             color: white;
             border: none;
-            border-radius: 8px;
             cursor: pointer;
         }
+        .form-container button:hover {
+            background-color: #254a99;
+        }
         table {
-            width: 100%;
-            margin-top: 20px;
             border-collapse: collapse;
-            background-color: #fff0f5;
+            width: 90%;
+            max-width: 800px;
         }
         th, td {
-            border: 1px solid #f3c3d8;
-            padding: 8px;
+            border: 1px solid #ccc;
+            padding: 12px;
             text-align: center;
         }
         th {
-            background-color: #fbcfe8;
+            background-color: #3366cc;
+            color: white;
+        }
+        td {
+            background-color: #ffffff;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>阿砚的可爱课程表</h2>
-        <input id="name" placeholder="日程名称" />
-        <select id="day">
+    <h1>阿砚的课程日程表</h1>
+    <div class="form-container">
+        <input type="text" id="eventName" placeholder="日程名称">
+        <select id="eventDay">
             <option value="星期一">星期一</option>
             <option value="星期二">星期二</option>
             <option value="星期三">星期三</option>
@@ -66,42 +72,66 @@
             <option value="星期六">星期六</option>
             <option value="星期日">星期日</option>
         </select>
-        <select id="time">
-            <option value="7:00AM - 8:00AM">7:00AM - 8:00AM</option><option value="8:00AM - 9:00AM">8:00AM - 9:00AM</option><option value="9:00AM - 10:00AM">9:00AM - 10:00AM</option><option value="10:00AM - 11:00AM">10:00AM - 11:00AM</option><option value="11:00AM - 12:00PM">11:00AM - 12:00PM</option><option value="12:00PM - 1:00PM">12:00PM - 1:00PM</option><option value="1:00PM - 2:00PM">1:00PM - 2:00PM</option><option value="2:00PM - 3:00PM">2:00PM - 3:00PM</option><option value="3:00PM - 4:00PM">3:00PM - 4:00PM</option><option value="4:00PM - 5:00PM">4:00PM - 5:00PM</option><option value="5:00PM - 6:00PM">5:00PM - 6:00PM</option><option value="6:00PM - 7:00PM">6:00PM - 7:00PM</option><option value="7:00PM - 8:00PM">7:00PM - 8:00PM</option><option value="8:00PM - 9:00PM">8:00PM - 9:00PM</option><option value="9:00PM - 10:00PM">9:00PM - 10:00PM</option><option value="10:00PM - 11:00PM">10:00PM - 11:00PM</option><option value="11:00PM - 12:00AM">11:00PM - 12:00AM</option>
+        <select id="eventTime">
+            <option value="8:00 AM - 9:00 AM">8:00 AM - 9:00 AM</option>
+            <option value="9:00 AM - 10:00 AM">9:00 AM - 10:00 AM</option>
+            <option value="10:00 AM - 11:00 AM">10:00 AM - 11:00 AM</option>
+            <option value="11:00 AM - 12:00 PM">11:00 AM - 12:00 PM</option>
+            <option value="12:00 PM - 1:00 PM">12:00 PM - 1:00 PM</option>
+            <option value="1:00 PM - 2:00 PM">1:00 PM - 2:00 PM</option>
+            <option value="2:00 PM - 3:00 PM">2:00 PM - 3:00 PM</option>
+            <option value="3:00 PM - 4:00 PM">3:00 PM - 4:00 PM</option>
+            <option value="4:00 PM - 5:00 PM">4:00 PM - 5:00 PM</option>
+            <option value="5:00 PM - 6:00 PM">5:00 PM - 6:00 PM</option>
+            <option value="6:00 PM - 7:00 PM">6:00 PM - 7:00 PM</option>
+            <option value="7:00 PM - 8:00 PM">7:00 PM - 8:00 PM</option>
+            <option value="8:00 PM - 9:00 PM">8:00 PM - 9:00 PM</option>
+            <option value="9:00 PM - 10:00 PM">9:00 PM - 10:00 PM</option>
         </select>
-        <button onclick="addItem()">添加</button>
-        <table id="schedule">
-            <tr><th>星期</th><th>时间</th><th>日程</th></tr>
-        </table>
+        <button onclick="addSchedule()">添加</button>
     </div>
+    <table id="scheduleTable">
+        <thead>
+            <tr><th>星期</th><th>时间</th><th>日程</th></tr>
+        </thead>
+        <tbody id="scheduleBody"></tbody>
+    </table>
     <script>
+        const tableBody = document.getElementById("scheduleBody");
+        const storageKey = "scheduleData";
+
         function loadSchedule() {
-            const data = JSON.parse(localStorage.getItem("schedule") || "[]");
-            const table = document.getElementById("schedule");
-            data.forEach(row => {
-                const tr = document.createElement("tr");
-                tr.innerHTML = `<td>{row.day}</td><td>{row.time}</td><td>{row.name}</td>`;
-                table.appendChild(tr);
-            });
+            const saved = localStorage.getItem(storageKey);
+            if (saved) {
+                const data = JSON.parse(saved);
+                data.forEach(entry => insertRow(entry.day, entry.time, entry.name));
+            }
         }
 
-        function addItem() {
-            const name = document.getElementById("name").value;
-            const day = document.getElementById("day").value;
-            const time = document.getElementById("time").value;
+        function saveSchedule(data) {
+            localStorage.setItem(storageKey, JSON.stringify(data));
+        }
+
+        function addSchedule() {
+            const name = document.getElementById("eventName").value.trim();
+            const day = document.getElementById("eventDay").value;
+            const time = document.getElementById("eventTime").value;
             if (!name) return;
 
-            const table = document.getElementById("schedule");
-            const tr = document.createElement("tr");
-            tr.innerHTML = `<td>{day}</td><td>{time}</td><td>{name}</td>`;
-            table.appendChild(tr);
+            insertRow(day, time, name);
 
-            const data = JSON.parse(localStorage.getItem("schedule") || "[]");
-            data.push({ day, time, name });
-            localStorage.setItem("schedule", JSON.stringify(data));
+            const current = JSON.parse(localStorage.getItem(storageKey) || "[]");
+            current.push({day, time, name});
+            saveSchedule(current);
         }
 
-        window.onload = loadSchedule;
+        function insertRow(day, time, name) {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${day}</td><td>${time}</td><td>${name}</td>`;
+            tableBody.appendChild(row);
+        }
+
+        loadSchedule();
     </script>
 </body>
 </html>
