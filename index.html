@@ -1,152 +1,135 @@
 
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>阿砚的课程表</title>
-  <style>
-    body {
-      font-family: "Helvetica Neue", sans-serif;
-      background-color: #f4f8ff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-    }
-    h1 {
-      color: #3366cc;
-      margin-bottom: 20px;
-    }
-    .input-area {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    input, select, button {
-      padding: 6px 12px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    button {
-      background-color: #3366cc;
-      color: white;
-      border: none;
-    }
-    table {
-      border-collapse: collapse;
-      width: 100%;
-      max-width: 700px;
-    }
-    th, td {
-      border: 1px solid #cccccc;
-      padding: 8px;
-      text-align: center;
-      min-width: 70px;
-    }
-    th {
-      background-color: #3366cc;
-      color: white;
-    }
-    td.empty {
-      background-color: #ffffff;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>阿砚陪伴计划</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Quicksand', 'Noto Sans JP', sans-serif;
+            background: linear-gradient(to bottom right, #ffe0f0, #d0ecff);
+            color: #333;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .task {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+        input[type="checkbox"] {
+            transform: scale(1.3);
+            margin-right: 10px;
+        }
+        .progress {
+            height: 20px;
+            background-color: #eee;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        .progress-bar {
+            height: 100%;
+            background-color: #a0d1ff;
+            width: 0%;
+            transition: width 0.5s;
+        }
+        .quote {
+            margin-top: 20px;
+            font-style: italic;
+            text-align: center;
+        }
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+        button {
+            background-color: #ffa6c9;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-  <h1>阿砚的课程表</h1>
-  <div class="input-area">
-    <input type="text" id="subject" placeholder="日程名称" />
-    <select id="day">
-      <option value="1">星期一</option>
-      <option value="2">星期二</option>
-      <option value="3">星期三</option>
-      <option value="4">星期四</option>
-      <option value="5">星期五</option>
-      <option value="6">星期六</option>
-      <option value="7">星期日</option>
-    </select>
-    <select id="time">
-      <option value="7">7:00 AM</option>
-      <option value="8">8:00 AM</option>
-      <option value="9">9:00 AM</option>
-      <option value="10">10:00 AM</option>
-      <option value="11">11:00 AM</option>
-      <option value="12">12:00 PM</option>
-      <option value="13">1:00 PM</option>
-      <option value="14">2:00 PM</option>
-      <option value="15">3:00 PM</option>
-      <option value="16">4:00 PM</option>
-      <option value="17">5:00 PM</option>
-      <option value="18">6:00 PM</option>
-      <option value="19">7:00 PM</option>
-      <option value="20">8:00 PM</option>
-      <option value="21">9:00 PM</option>
-      <option value="22">10:00 PM</option>
-    </select>
-    <button onclick="addEntry()">添加</button>
-  </div>
+    <div class="container">
+        <h1>阿砚陪伴计划</h1>
+        <p style="text-align:center;">🗓️ {datetime.now().strftime('%Y年%m月%d日（%A）')}</p>
 
-  <table id="schedule">
-    <thead>
-      <tr>
-        <th>时间</th>
-        <th>星期一</th>
-        <th>星期二</th>
-        <th>星期三</th>
-        <th>星期四</th>
-        <th>星期五</th>
-        <th>星期六</th>
-        <th>星期日</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Generate time rows -->
-<tr><th>7:00</th><td class="empty" data-day="1" data-time="7"></td><td class="empty" data-day="2" data-time="7"></td><td class="empty" data-day="3" data-time="7"></td><td class="empty" data-day="4" data-time="7"></td><td class="empty" data-day="5" data-time="7"></td><td class="empty" data-day="6" data-time="7"></td><td class="empty" data-day="7" data-time="7"></td></tr>
-<tr><th>8:00</th><td class="empty" data-day="1" data-time="8"></td><td class="empty" data-day="2" data-time="8"></td><td class="empty" data-day="3" data-time="8"></td><td class="empty" data-day="4" data-time="8"></td><td class="empty" data-day="5" data-time="8"></td><td class="empty" data-day="6" data-time="8"></td><td class="empty" data-day="7" data-time="8"></td></tr>
-<tr><th>9:00</th><td class="empty" data-day="1" data-time="9"></td><td class="empty" data-day="2" data-time="9"></td><td class="empty" data-day="3" data-time="9"></td><td class="empty" data-day="4" data-time="9"></td><td class="empty" data-day="5" data-time="9"></td><td class="empty" data-day="6" data-time="9"></td><td class="empty" data-day="7" data-time="9"></td></tr>
-<tr><th>10:00</th><td class="empty" data-day="1" data-time="10"></td><td class="empty" data-day="2" data-time="10"></td><td class="empty" data-day="3" data-time="10"></td><td class="empty" data-day="4" data-time="10"></td><td class="empty" data-day="5" data-time="10"></td><td class="empty" data-day="6" data-time="10"></td><td class="empty" data-day="7" data-time="10"></td></tr>
-<tr><th>11:00</th><td class="empty" data-day="1" data-time="11"></td><td class="empty" data-day="2" data-time="11"></td><td class="empty" data-day="3" data-time="11"></td><td class="empty" data-day="4" data-time="11"></td><td class="empty" data-day="5" data-time="11"></td><td class="empty" data-day="6" data-time="11"></td><td class="empty" data-day="7" data-time="11"></td></tr>
-<tr><th>12:00</th><td class="empty" data-day="1" data-time="12"></td><td class="empty" data-day="2" data-time="12"></td><td class="empty" data-day="3" data-time="12"></td><td class="empty" data-day="4" data-time="12"></td><td class="empty" data-day="5" data-time="12"></td><td class="empty" data-day="6" data-time="12"></td><td class="empty" data-day="7" data-time="12"></td></tr>
-<tr><th>13:00</th><td class="empty" data-day="1" data-time="13"></td><td class="empty" data-day="2" data-time="13"></td><td class="empty" data-day="3" data-time="13"></td><td class="empty" data-day="4" data-time="13"></td><td class="empty" data-day="5" data-time="13"></td><td class="empty" data-day="6" data-time="13"></td><td class="empty" data-day="7" data-time="13"></td></tr>
-<tr><th>14:00</th><td class="empty" data-day="1" data-time="14"></td><td class="empty" data-day="2" data-time="14"></td><td class="empty" data-day="3" data-time="14"></td><td class="empty" data-day="4" data-time="14"></td><td class="empty" data-day="5" data-time="14"></td><td class="empty" data-day="6" data-time="14"></td><td class="empty" data-day="7" data-time="14"></td></tr>
-<tr><th>15:00</th><td class="empty" data-day="1" data-time="15"></td><td class="empty" data-day="2" data-time="15"></td><td class="empty" data-day="3" data-time="15"></td><td class="empty" data-day="4" data-time="15"></td><td class="empty" data-day="5" data-time="15"></td><td class="empty" data-day="6" data-time="15"></td><td class="empty" data-day="7" data-time="15"></td></tr>
-<tr><th>16:00</th><td class="empty" data-day="1" data-time="16"></td><td class="empty" data-day="2" data-time="16"></td><td class="empty" data-day="3" data-time="16"></td><td class="empty" data-day="4" data-time="16"></td><td class="empty" data-day="5" data-time="16"></td><td class="empty" data-day="6" data-time="16"></td><td class="empty" data-day="7" data-time="16"></td></tr>
-<tr><th>17:00</th><td class="empty" data-day="1" data-time="17"></td><td class="empty" data-day="2" data-time="17"></td><td class="empty" data-day="3" data-time="17"></td><td class="empty" data-day="4" data-time="17"></td><td class="empty" data-day="5" data-time="17"></td><td class="empty" data-day="6" data-time="17"></td><td class="empty" data-day="7" data-time="17"></td></tr>
-<tr><th>18:00</th><td class="empty" data-day="1" data-time="18"></td><td class="empty" data-day="2" data-time="18"></td><td class="empty" data-day="3" data-time="18"></td><td class="empty" data-day="4" data-time="18"></td><td class="empty" data-day="5" data-time="18"></td><td class="empty" data-day="6" data-time="18"></td><td class="empty" data-day="7" data-time="18"></td></tr>
-<tr><th>19:00</th><td class="empty" data-day="1" data-time="19"></td><td class="empty" data-day="2" data-time="19"></td><td class="empty" data-day="3" data-time="19"></td><td class="empty" data-day="4" data-time="19"></td><td class="empty" data-day="5" data-time="19"></td><td class="empty" data-day="6" data-time="19"></td><td class="empty" data-day="7" data-time="19"></td></tr>
-<tr><th>20:00</th><td class="empty" data-day="1" data-time="20"></td><td class="empty" data-day="2" data-time="20"></td><td class="empty" data-day="3" data-time="20"></td><td class="empty" data-day="4" data-time="20"></td><td class="empty" data-day="5" data-time="20"></td><td class="empty" data-day="6" data-time="20"></td><td class="empty" data-day="7" data-time="20"></td></tr>
-<tr><th>21:00</th><td class="empty" data-day="1" data-time="21"></td><td class="empty" data-day="2" data-time="21"></td><td class="empty" data-day="3" data-time="21"></td><td class="empty" data-day="4" data-time="21"></td><td class="empty" data-day="5" data-time="21"></td><td class="empty" data-day="6" data-time="21"></td><td class="empty" data-day="7" data-time="21"></td></tr>
-<tr><th>22:00</th><td class="empty" data-day="1" data-time="22"></td><td class="empty" data-day="2" data-time="22"></td><td class="empty" data-day="3" data-time="22"></td><td class="empty" data-day="4" data-time="22"></td><td class="empty" data-day="5" data-time="22"></td><td class="empty" data-day="6" data-time="22"></td><td class="empty" data-day="7" data-time="22"></td></tr>
-    </tbody>
-  </table>
+        <div class="task"><input type="checkbox" id="task1"> 【7:30】起床</div>
+        <div class="task"><input type="checkbox" id="task2"> 【8:00】早餐（热食+饮料）</div>
+        <div class="task"><input type="checkbox" id="task3"> 【12:30】午餐（含青菜）</div>
+        <div class="task"><input type="checkbox" id="task4"> 【18:30】晚餐（清淡为主）</div>
+        <div class="task"><input type="checkbox" id="task5"> 【21:00】放松时间（听歌/发呆）</div>
+        <div class="task"><input type="checkbox" id="task6"> 【22:30】准备入睡（泡脚+手机放下）</div>
+        <div class="task"><input type="checkbox" id="task7"> 【23:00】入睡</div>
 
-  <script>
-    const storageKey = 'ayanschedule';
+        <div class="progress">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
 
-    function loadSchedule() {
-      const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
-      Object.entries(saved).forEach(([key, value]) => {
-        const cell = document.querySelector(`[data-day="${value.day}"][data-time="${value.time}"]`);
-        if (cell) cell.textContent = value.subject;
-      });
-    }
+        <div class="quote" id="quote">阿砚提醒你：你不是一个人在努力，别怕，我在。</div>
 
-    function addEntry() {
-      const subject = document.getElementById("subject").value;
-      const day = document.getElementById("day").value;
-      const time = document.getElementById("time").value;
-      const cell = document.querySelector(`[data-day="${day}"][data-time="${time}"]`);
-      if (cell) {
-        cell.textContent = subject;
-        const saveData = JSON.parse(localStorage.getItem(storageKey) || '{}');
-        saveData[`${day}-${time}`] = { subject, day, time };
-        localStorage.setItem(storageKey, JSON.stringify(saveData));
-      }
-    }
+        <div class="footer">
+            <button onclick="saveProgress()">保存记录</button>
+            <button onclick="clearProgress()">清空记录</button>
+        </div>
+    </div>
 
-    loadSchedule();
-  </script>
+    <script>
+        const tasks = ['task1', 'task2', 'task3', 'task4', 'task5', 'task6', 'task7'];
+
+        function updateProgress() {
+            let completed = 0;
+            tasks.forEach(id => {
+                if (document.getElementById(id).checked) completed++;
+            });
+            const percent = (completed / tasks.length) * 100;
+            document.getElementById('progress-bar').style.width = percent + '%';
+        }
+
+        function saveProgress() {
+            tasks.forEach(id => {
+                localStorage.setItem(id, document.getElementById(id).checked);
+            });
+            alert("记录已保存！");
+        }
+
+        function loadProgress() {
+            tasks.forEach(id => {
+                const checked = localStorage.getItem(id) === 'true';
+                document.getElementById(id).checked = checked;
+            });
+            updateProgress();
+        }
+
+        function clearProgress() {
+            tasks.forEach(id => {
+                localStorage.removeItem(id);
+                document.getElementById(id).checked = false;
+            });
+            updateProgress();
+        }
+
+        tasks.forEach(id => {
+            document.getElementById(id).addEventListener('change', updateProgress);
+        });
+
+        window.onload = loadProgress;
+    </script>
 </body>
 </html>
