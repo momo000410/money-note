@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>乖乖的小金库 · 蔷薇宫廷复古风</title>
+<style>
+:root {
+  --bg: #f9f4ef;
+  --ink: #4b2e2e;
+  --gold: #b68b4c;
+  --rose: #c66a7a;
+  --panel: #fffdf9;
+}
+body {
+  font-family: "Georgia", "Songti SC", serif;
+  margin: 0;
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at 20% 30%, #fff9f4, #f5ede2 80%), url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAIElEQVQYV2N89+7dfwYiAAVmFhA8xZAGmEAsgGoDsRgEGgAAKqQPDNRhBIAAAAASUVORK5CYII=');
+  background-size: cover;
+  color: var(--ink);
+}
+.container {
+  max-width: 900px;
+  margin: 40px auto;
+  background: var(--panel);
+  border: 3px double var(--gold);
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.15);
+  padding: 20px 30px 40px;
+}
+h1 {
+  text-align: center;
+  color: var(--rose);
+  border: 3px solid var(--gold);
+  display: inline-block;
+  padding: 10px 20px;
+  background: linear-gradient(180deg, #fffaf3, #f3e6d5);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+h1::before, h1::after {
+  content: "❀";
+  color: var(--gold);
+  margin: 0 10px;
+}
+form {
+  margin: 25px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+input, select, button {
+  font-size: 15px;
+  padding: 6px 10px;
+  border: 1px solid var(--gold);
+  border-radius: 6px;
+}
+button {
+  background-color: var(--rose);
+  color: white;
+  cursor: pointer;
+}
+button:hover {
+  background-color: var(--gold);
+  color: var(--ink);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background: #fffaf4;
+}
+th, td {
+  border: 1px solid var(--gold);
+  padding: 8px;
+  text-align: center;
+}
+th {
+  background-color: #f9ecd2;
+  color: var(--ink);
+}
+tfoot td {
+  font-weight: bold;
+  background-color: #f6e9c8;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <center><h1>乖乖的小金库 · 蔷薇账本</h1></center>
+  <form id="recordForm">
+    <input type="date" id="date" required>
+    <input type="text" id="item" placeholder="项目" required>
+    <input type="number" id="amount" placeholder="金额" step="0.01" required>
+    <select id="type">
+      <option value="收入">收入</option>
+      <option value="支出">支出</option>
+    </select>
+    <input type="text" id="note" placeholder="备注">
+    <button type="submit">添加</button>
+    <button type="button" id="clearAll">清空</button>
+  </form>
+
+  <table id="moneyTable">
+    <thead>
+      <tr>
+        <th>日期</th>
+        <th>项目</th>
+        <th>金额</th>
+        <th>类型</th>
+        <th>备注</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+    <tfoot>
+      <tr><td colspan="6">当前总计: <span id="total">0.00</span> 元</td></tr>
+    </tfoot>
+  </table>
+</div>
+
+<script>
+const form = document.getElementById('recordForm');
+const tableBody = document.querySelector('#moneyTable tbody');
+const totalCell = document.getElementById('total');
+const clearAllBtn = document.getElementById('clearAll');
+
+function loadRecords() {
+  const data = JSON.parse(localStorage.getItem('moneyRecords') || '[]');
+  data.forEach(addRow);
+  updateTotal();
+}
+function saveRecords() {
+  const rows = Array.from(tableBody.querySelectorAll('tr')).map(tr => {
+    const cells = tr.querySelectorAll('td');
+    return {
+      date: cells[0].textContent,
+      item: cells[1].textContent,
+      amount: parseFloat(cells[2].textContent),
+      type: cells[3].textContent,
+      note: cells[4].textContent
+    };
+  });
+  localStorage.setItem('moneyRecords', JSON.stringify(rows));
+}
+function addRow(record) {
+  const row = document.createElement('tr');
+  row.innerHTML = `<td>${record.date}</td>
+    <td>${record.item}</td>
+    <td>${record.amount.toFixed(2)}</td>
+    <td>${record.type}</td>
+    <td>${record.note || ''}</td>
+    <td><button onclick="deleteRow(this)">删除</button></td>`;
+  tableBody.appendChild(row);
+}
+function updateTotal() {
+  let total = 0;
+  tableBody.querySelectorAll('tr').forEach(tr => {
+    const amount = parseFloat(tr.children[2].textContent);
+    const type = tr.children[3].textContent;
+    if (type === '收入') total += amount;
+    else total -= amount;
+  });
+  totalCell.textContent = total.toFixed(2);
+}
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const record = {
+    date: form.date.value,
+    item: form.item.value,
+    amount: parseFloat(form.amount.value),
+    type: form.type.value,
+    note: form.note.value
+  };
+  addRow(record);
+  saveRecords();
+  updateTotal();
+  form.reset();
+});
+function deleteRow(btn) {
+  btn.parentElement.parentElement.remove();
+  saveRecords();
+  updateTotal();
+}
+clearAllBtn.addEventListener('click', () => {
+  if (confirm('确定清空所有记录吗？')) {
+    localStorage.removeItem('moneyRecords');
+    tableBody.innerHTML = '';
+    updateTotal();
+  }
+});
+window.onload = loadRecords;
+</script>
+</body>
+</html>
